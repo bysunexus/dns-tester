@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.MessageFormat;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -17,7 +18,7 @@ public class IpResolver {
   @Resource
   private HttpClient httpClient;
 
-  public Optional<IpInfoData> resolve(String ip){
+  public Optional<IpInfoData> resolve(String ip) {
 
     HttpRequest request = HttpRequest.newBuilder()
       .GET()
@@ -36,11 +37,13 @@ public class IpResolver {
     }
 
     IpInfo ipInfo = response.body();
-    if (ipInfo == null || ipInfo.getData() == null) {
+    if (ipInfo == null || ipInfo.getData() == null || ipInfo.getData().isEmpty()) {
       return Optional.empty();
     }
-    Optional<IpInfoData> result = Optional.ofNullable(ipInfo.getData().get(ip));
-    result.ifPresent(ipInfoData -> ipInfoData.setIp(ip));
-    return result;
+
+    Map.Entry<String, IpInfoData> enrty = ipInfo.getData().entrySet().stream().findFirst().get();
+    IpInfoData ipInfoData = enrty.getValue();
+    ipInfoData.setIp(enrty.getKey());
+    return Optional.of(ipInfoData);
   }
 }
