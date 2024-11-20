@@ -3,6 +3,8 @@ package in.fireye.dnstester.service;
 import in.fireye.dnstester.resolver.IpInfoData;
 import lombok.Data;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class TestResult {
     System.out.printf("Local Info:%s %s%n", localIpInfo.getCity(), localIpInfo.getIsp());
     System.out.println("Test Results:");
     System.out.println("ip\tcity-isp\tdistance(km)");
+    dnsResults.sort(Comparator.comparing(TestDNSResult::getDnsDelay));
     for (TestDNSResult dnsResult : dnsResults) {
       System.out.printf("DNS Server: %s\tDelay:%dms%n", dnsResult.getDnsServer(), dnsResult.getDnsDelay());
       for (IpInfoData ipInfoData : dnsResult.getResult()) {
