@@ -114,6 +114,7 @@
               <artifactId>lombok</artifactId>
             </exclude>
           </excludes>
+          <mainClass>in.fireye.dnstester.DnsTesterApplication</mainClass>
         </configuration>
       </plugin>
       <plugin>
