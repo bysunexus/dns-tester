@@ -7,14 +7,19 @@ import in.fireye.dnstester.resolver.DnsResolver;
 import in.fireye.dnstester.resolver.IpInfoData;
 import in.fireye.dnstester.resolver.IpResolver;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
+@Slf4j
 @Service
 public class TestService {
   @Resource
@@ -24,7 +29,7 @@ public class TestService {
   @Resource
   private TesterConfig testerConfig;
 
-  public TestResult test(String hostname) throws InterruptedException, ExecutionException {
+  public TestResult test(String hostname) {
     TestResult result = new TestResult();
 
     // 设置本地IP信息
@@ -62,6 +67,9 @@ public class TestService {
       for (Future<TestDNSResult> testDNSResultFuture : results) {
         result.addDnsResult(testDNSResultFuture.get());
       }
+    } catch (Exception e) {
+      log.error("解析dns时发生错误：", e);
+      throw new RuntimeException(e);
     }
     return result;
   }

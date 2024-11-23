@@ -11,10 +11,12 @@ import org.xbill.DNS.*;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 @Component
 public class DnsResolver {
+
   @Resource
   private TesterConfig testerConfig;
 
@@ -25,23 +27,25 @@ public class DnsResolver {
     Resolver resolver = createResolver(dnsServer);
     int times = 1;
     Lookup lookupA = new Lookup(domain, Type.A);
+    lookupA.setCache(null);
     lookupA.setResolver(resolver);
     StopWatch stopWatch = StopWatch.createStarted();
     Record[] recordsA = lookupA.run();
     stopWatch.suspend();
-    if (!ArrayUtils.isEmpty(recordsA)) {
+    if (ArrayUtils.isNotEmpty(recordsA)) {
       ARecord record = (ARecord) recordsA[0];
       result.getResult().add(record.getAddress().getHostAddress());
     }
     if (testerConfig.isSupportIpv6()) {
       times = 2;
       Lookup lookupAAAA = new Lookup(domain, Type.AAAA);
+      lookupAAAA.setCache(null);
       lookupAAAA.setResolver(resolver);
       stopWatch.resume();
       Record[] recordsAAAA = lookupAAAA.run();
       stopWatch.stop();
-      if (!ArrayUtils.isEmpty(recordsA)) {
-        ARecord record = (ARecord) recordsAAAA[0];
+      if (ArrayUtils.isNotEmpty(recordsAAAA)) {
+        AAAARecord record = (AAAARecord) recordsAAAA[0];
         result.getResult().add(record.getAddress().getHostAddress());
       }
     }
@@ -52,6 +56,7 @@ public class DnsResolver {
   public Resolver createResolver(String dnsServer) throws UnknownHostException {
     Resolver resolver = new SimpleResolver(dnsServer);
     resolver.setTCP(testerConfig.isUseTcp());
+    resolver.setTimeout(Duration.ofSeconds(2));
     if (!testerConfig.isUseEdns()) {
       resolver.setEDNS(-1);
       return resolver;

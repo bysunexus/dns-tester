@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0"
+      prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="in.fireye.dnstester.controller.MainController">
+  <MenuBar>
+    <Menu mnemonicParsing="false" text="☰">
+      <MenuItem mnemonicParsing="false" onAction="#openSettings" text="设置"/>
+      <MenuItem mnemonicParsing="false" onAction="#openAbout" text="关于"/>
+    </Menu>
+  </MenuBar>
+  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0"
+              prefWidth="640.0" VBox.vgrow="NEVER">
+    <VBox.margin>
+      <Insets/>
+    </VBox.margin>
+    <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+    </padding>
+    <Label contentDisplay="RIGHT" layoutX="40.0" layoutY="40.0" text="域名：">
+      <graphic>
+        <TextField fx:id="domainField" prefHeight="29.0" prefWidth="300.0" promptText="www.baidu.com"
+                   text="www.baidu.com"/>
+      </graphic>
+    </Label>
+    <Button fx:id="startBtn" accessibleRole="TOOLTIP" defaultButton="true" layoutX="400.0" layoutY="40.0"
+            mnemonicParsing="false" onMouseClicked="#doTest" text="开始"/>
+    <TextArea fx:id="resultArea" editable="false" layoutX="40.0" layoutY="142.0" prefHeight="292.0"
+              prefWidth="560.0"/>
+    <Pane fx:id="resultPane" layoutX="40.0" layoutY="68.0" prefHeight="74.0" prefWidth="560.0" visible="false">
+      <Label layoutY="28.0" text="最佳DNS："/>
+      <TextField fx:id="bestFirst" disable="true" editable="false" layoutX="82.0" layoutY="23.0" prefHeight="29.0"
+                 prefWidth="126.0"/>
+      <Button layoutX="214.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#copyFirst" text="复制"/>
+      <TextField fx:id="bsetSecond" disable="true" editable="false" layoutX="295.0" layoutY="23.0" prefHeight="29.0"
+                 prefWidth="126.0"/>
+      <Button layoutX="427.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#copySecond" text="复制"/>
+    </Pane>
+  </AnchorPane>
+</VBox>

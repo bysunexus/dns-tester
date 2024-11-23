@@ -1,36 +1,6 @@
 spring:
   application:
     name: dns-tester
-fireye:
-  dns:
-    tester:
-      servers:
-#dnspod
-        - 119.29.29.29
-        - 119.28.28.28
-        - 182.254.116.116
-        - 182.254.118.118
-#alidns
-        - 223.5.5.5
-        - 223.6.6.6
-#baidu
-        - 180.76.76.76
-#字节
-        - 180.184.1.1
-        - 180.184.2.2
-#114dns
-        - 114.114.114.114
-        - 114.114.115.115
-#dnsone
-        - 117.50.10.10
-        - 52.80.52.52
-#dnspai
-        - 101.226.4.6
-        - 218.30.118.6
-        - 123.125.81.6
-        - 140.207.198.6
-      support-ipv6: false
-      use-tcp: true
-      use-edns: true
-      subnet-cidr4: 118.113.4.0/24
-      subnet-cidr6: 240e:398::/64
+logging:
+  level:
+    .root: WARN

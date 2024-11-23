@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="rootVBox" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="in.fireye.dnstester.controller.SettingsController">
+  <AnchorPane prefHeight="400.0" prefWidth="600.0">
+    <Label layoutX="76.0" layoutY="14.0" text="DNS服务器"/>
+    <ListView fx:id="dnsServersView" editable="true" layoutX="14.0" layoutY="39.0" prefHeight="224.0"
+              prefWidth="200.0"/>
+    <TextField fx:id="dnsServerTextField" layoutX="14.0" layoutY="271.0" prefHeight="29.0" prefWidth="143.0"
+               promptText="114.114.114.114"/>
+    <Button layoutX="165.0" layoutY="271.0" mnemonicParsing="false" onMouseClicked="#addDnsServer" text="添加"/>
+    <Button defaultButton="true" layoutX="409.0" layoutY="357.0" mnemonicParsing="false"
+            onMouseClicked="#saveSettings" text="确定"/>
+    <Button cancelButton="true" layoutX="492.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#cancel"
+            text="取消"/>
+    <Pane layoutX="254.0" layoutY="39.0" prefHeight="154.0" prefWidth="200.0">
+      <CheckBox fx:id="ipv6Checkbox" layoutY="4.0" mnemonicParsing="false" text="AAAA地址解析"/>
+      <CheckBox fx:id="tcpCheckbox" layoutY="67.0" mnemonicParsing="false" text="使用TCP请求"/>
+      <CheckBox fx:id="ednsCheckbox" layoutY="130.0" mnemonicParsing="false" text="使用EDNS"/>
+    </Pane>
+    <Label contentDisplay="BOTTOM" layoutX="254.0" layoutY="200.0" text="EDNS Subnet CIDR 1">
+      <graphic>
+        <TextField fx:id="cidr1TextField" prefHeight="29.0" prefWidth="323.0" promptText="118.113.4.0/24"/>
+      </graphic>
+    </Label>
+    <Label contentDisplay="BOTTOM" layoutX="254.0" layoutY="271.0" text="EDNS Subnet CIDR 2">
+      <graphic>
+        <TextField fx:id="cidr2TextField" prefHeight="29.0" prefWidth="323.0" promptText="240e:398::/64"/>
+      </graphic>
+    </Label>
+    <Button defaultButton="true" layoutX="14.0" layoutY="309.0" mnemonicParsing="false"
+            onMouseClicked="#removeDnsServer" prefHeight="29.0" prefWidth="200.0" text="删除选中DNS服务器"/>
+  </AnchorPane>
+</VBox>

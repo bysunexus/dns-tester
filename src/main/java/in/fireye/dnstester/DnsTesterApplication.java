@@ -1,30 +1,24 @@
 package in.fireye.dnstester;
 
 import in.fireye.dnstester.config.TesterConfig;
-import in.fireye.dnstester.service.TestResult;
-import in.fireye.dnstester.service.TestService;
-import org.springframework.boot.SpringApplication;
+import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ConfigurableApplicationContext;
-
-import java.util.concurrent.ExecutionException;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.xbill.DNS.Lookup;
 
 @SpringBootApplication
-@EnableConfigurationProperties({TesterConfig.class})
+@ConfigurationPropertiesScan
+@Configuration
+@EnableConfigurationProperties(TesterConfig.class)
+@PropertySource("classpath:dnstester.properties")
 public class DnsTesterApplication {
 
   public static void main(String[] args) {
-    ConfigurableApplicationContext app = SpringApplication.run(DnsTesterApplication.class, args);
-    TestService testService = app.getBean(TestService.class);
-    try {
-      TestResult result = testService.test("www.bilibili.com");
+    Lookup.setDefaultHostsFileParser(null);
+    Application.launch(GuiApplication.class, args);
 
-      result.print();
-      System.exit(0);
-    } catch (InterruptedException | ExecutionException e) {
-      throw new RuntimeException(e);
-    }
   }
-
 }

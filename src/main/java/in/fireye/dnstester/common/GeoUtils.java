@@ -13,7 +13,7 @@ public class GeoUtils {
    * @param latitude1  第一个点的纬度
    * @param longitude2 第二个点的经度
    * @param latitude2  第二个点的纬度
-   * @return 返回距离，单位m
+   * @return 返回距离，单位km
    */
   public static double getDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
     // 纬度
@@ -28,7 +28,7 @@ public class GeoUtils {
     double b = lng1 - lng2;
     // 计算两点距离的公式
     double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(b / 2), 2)));
-    // 弧长乘地球半径, 返回单位: 米
-    return s * EARTH_RADIUS;
+    // 弧长乘地球半径, 返回单位: km
+    return s * EARTH_RADIUS / 1000.0;
   }
 }
