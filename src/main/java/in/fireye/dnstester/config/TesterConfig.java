@@ -39,12 +39,11 @@ public class TesterConfig {
     }
 
     subnetOptions = new ArrayList<>();
-    asdq(subnetCidr4);
-
-    asdq(subnetCidr6);
+    addSubnetOpt(subnetCidr4);
+    addSubnetOpt(subnetCidr6);
   }
 
-  private void asdq(String subnetCidr) {
+  private void addSubnetOpt(String subnetCidr) {
     if (StringUtils.isNoneBlank(subnetCidr)) {
       IPAddressString ipAddressString = new IPAddressString(subnetCidr);
       if (!ipAddressString.isValid() || !ipAddressString.isPrefixed()) {

@@ -128,7 +128,7 @@ public class MainController implements ApplicationContextAware {
         .sorted(Comparator.comparing(TestDNSResult::sortingWeight))
         .toList();
       Platform.runLater(() -> {
-        resultArea.appendText(String.format("EDNS设置的本地信息为：%s-%s%n", localIpInfo.getCity(), localIpInfo.getIsp()));
+        resultArea.appendText(String.format("EDNS设置的本地信息为：%s %s%n", localIpInfo.getQueryIp(), localIpInfo.getCity()));
         int count = 0;
         for (TestDNSResult dnsResult : dnsResults) {
           if (count == 0) {
@@ -139,7 +139,7 @@ public class MainController implements ApplicationContextAware {
           }
           resultArea.appendText(String.format("DNS服务器: %s\t延迟: %dms 解析结果:%n", dnsResult.getDnsServer(), dnsResult.getDnsDelay()));
           for (IpInfoData ipInfoData : dnsResult.getResult()) {
-            resultArea.appendText(String.format("%s\t%s-%s\t%,.2fkm%n", ipInfoData.getIp(), ipInfoData.getCity(), ipInfoData.getIsp(), ipInfoData.getDistance()));
+            resultArea.appendText(String.format("%s\t%s\t%,.2fkm%n", ipInfoData.getQueryIp(), ipInfoData.getCity(), ipInfoData.getDistance()));
           }
           resultArea.appendText("\n");
           count++;

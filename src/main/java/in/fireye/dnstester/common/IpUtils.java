@@ -1,11 +1,12 @@
 package in.fireye.dnstester.common;
 
+import inet.ipaddr.IPAddressString;
+import net.renfei.ip2location.IPTools;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IpUtils {
-
+  private static final IPTools tools = new IPTools();
   /**
    * 获取本机所有ip地址
    *
@@ -58,11 +59,21 @@ public class IpUtils {
     if (StringUtils.isAnyBlank(ip)) {
       return false;
     }
-    try {
-      InetAddress inet = InetAddress.getByName(ip);
-      return inet != null;
-    } catch (UnknownHostException e) {
+    IPAddressString ipAddressString = new IPAddressString(ip);
+    return ipAddressString.isIPAddress();
+  }
+
+  public static boolean isValidIPv4(String ip) {
+    if (StringUtils.isAnyBlank(ip)) {
       return false;
     }
+    return tools.IsIPv4(ip);
+  }
+
+  public static boolean isValidIPv6(String ip) {
+    if (StringUtils.isAnyBlank(ip)) {
+      return false;
+    }
+    return tools.IsIPv6(ip);
   }
 }

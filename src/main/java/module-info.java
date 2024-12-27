@@ -8,7 +8,6 @@ open module dns.tester {
   requires spring.context;
   requires spring.core;
   requires spring.beans;
-  requires java.net.http;
   requires lombok;
   requires javafx.swing;
   requires org.pomo.toasterfx;
@@ -16,5 +15,8 @@ open module dns.tester {
   requires javafx.fxml;
   requires org.slf4j;
   requires inet.ipaddr;
+  requires ip2location;
+  requires com.maxmind.geoip2;
+  requires java.net.http;
   exports in.fireye.dnstester;
 }
